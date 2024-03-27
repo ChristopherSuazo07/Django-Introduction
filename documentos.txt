@@ -1,0 +1,84 @@
+--manage.py
+No alteraremos dicho archivo precisamente, sin embargo este nos ayudará para poder ejecutar comandos en el proyecto actual
+este archivo es creado por django al iniciar un proyecto
+
+
+--settings.py
+Contiene ajustes de configuracion importantes para nuestra aplicacione django, ya viene con configuraciones predeterminadas
+pero en el transcurso del desarrollo posiblemente tendremos que agregar funciones a nuestra aplicacion, o en su comportamiento
+
+--urls.py (que esta cargado por defecto, el que esta al mismo nivel de settings.py)
+Podemos pensar este como una tabla de contenido en donde estaran las url de mi aplicacion que puedo visitar
+
+------------------------------------------------------Dentro de cada app-----------------------------------------------------------------
+
+--views.py
+Podemos pensar el contenido de este archivo, es decir, de las vistas como algo que el cliente podria ver
+
+--urls.py
+Nosotros creamos este archivo dentro de cada app para especificar a que ruta tiene acceso una app determinada
+
+-------------------------------------------------------Procedimientos---------------------------------------------------------------------
+1. Una vez creado nuestro project y una app, nos dirigimos al archivo del project, settings.py, en la lista llamada "INSTALLED_APPS",
+se deberan añadir cada app creada del projecto de la siguiente manera: 'name_app',
+
+2. Creamos una vista en el archivo de la app "views.py" por lo que podemos definir cualquier funcion que sera una vista, la cual SIEMPRE
+debe recibir como parametro al menos la palabra "request", los argumentos que tomen las funciones representaran la solicitud HTTP que el 
+cliente realizó para acceder a nuestro servidor
+
+3. En el mismo archivo views.py, puedo mostrar con "return HttpResponse()" esto me da la capacidad de dar una respuesta Http, sin embargo
+primeramente debo importar dicha funcion de la sig. manera: "from django.http import HttpResponse"
+
+Al ya tener una view, se le debe de decir a la app cuiando deberia devolver dicha respuesta, que url va a visitar el cliente, asi que se
+debe comenzar a crear alguna config de URL que le diga a Django cuando se visita una URL en particular, luego su funcion correspondiente
+se debde ejecutar oara devolver una respuesta HTTP
+
+PARA ELLO CREAMOS UN ARCHIVO URLS.PY DEEENTRO DE LA APP CORRESPONDIENTE
+
+    A. Dentro de este archivo "urls.py", de la app debida, creamos una lista de la siguiente manera:
+    "urlpatterns = [
+
+    ]"
+    Esta lista, sera una lista de todas las urls cuyo acceso es permitido por la app en la que se esta creando
+
+    B. Para crear una url, primeramente se debe de importar la funcion path de la sig manera:
+    "from django.urls import path "
+
+    C. Podemos comenzar a crear las urls que la app tiene acceso de la sig manera:
+
+    Importamos views, que se refiere donde tenemos las vistas de la app: from . import views
+    dentro de la lista:
+            "urlpatterns = [
+                path("Argumento al final de la ruta",views.vista_o_funcion_que_se_desea_ver, name="nombre para representar la ruta"), #el views es para referirnos a views.py
+            ]"
+
+    Darle un name a la ruta nos facilita hacer referencia a dicha ruta en otras partes de la app, por ejemplo en cuanto a los forms
+
+
+FINALMENTE PARA QUE TODO FUNCIONE SE DEBE DE REALIZAR LO SIGUIENTE:
+4. Dirigirse al archivo del project "urls.py", para agregar las propias rutas, diciendo que una ruta en particular conduzca a la aplicacion
+debida, de la siguiente manera:
+Importamos include:
+from django.urls import include, path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('nameruta/',include("nameapp.urls"))
+]
+
+
+------------------------------Cosas que se pueden realizar---------------------------------------------------------------
+--Si queremos que nuestra vista retorne un valor predeterminado, por ejemplo, un nombre para saludar
+bastara con especificar la varieble en los parametros que recibe la funcion, y en el archivo urls.py de la app, especificar que es lo que
+seguira a la app en la url, es decir, lo que se recibira como parametro en la funcion de views.py, con su tipo de dato y name de la variable:
+
+def ej(request, name):
+return HttpResponse(f"Hola {name}")
+
+"urlpatterns = [
+                path("<str:name>",views.vista_o_funcion_que_se_desea_ver, name="nombre para representar la ruta"),
+            ]"
+
+--Renderizar un html:
+En la vista correspondiente:
+return render(request,"nameapp/name.httl",variable_que_deseemos_pasar_al_html_para_usar_con_jinja)

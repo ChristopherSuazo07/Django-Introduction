@@ -1,0 +1,17 @@
+{% extends "tasks/layout.html" %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+    <a href="{% url 'tasks:add' %}">Add</a>
+        <!-- Ponemos tasks: por al app_name que especificamos en el urls.py con el fin de definir las urls de tasks como unicas y que 
+    no haya choque o colisiones respecto a urls con names similares -->
+
+    <h1>Tasks:</h1>
+    <ul>
+        {% for i in tasks %}
+            <li>{{ i }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

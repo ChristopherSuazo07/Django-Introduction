@@ -1,0 +1,18 @@
+--Empezamos un projecto creando un entorno virtual
+
+comando: python -m venv entorno . #el punto indica que se cree en la carpeta actual, que no se haga una carpeta nueva y se cree ahi
+
+--Activamos entorno
+comando: .\name\Scripts\activate
+
+--Instalamos Django en el entorno
+comando: pip install django
+
+--Iniciamos un proyecto Django
+comando: django-admin startproject name_project . #name, nombre del projecto, el punto significa lo mismo
+
+--Creamos una aplicacion Django
+comando: python manage.py startapp name_app
+
+--Correr el servidor
+comando: python manage.py runserver

@@ -1,0 +1,18 @@
+{% extends "tasks/layout.html" %}
+
+{% block title %}Add{% endblock %}
+
+{% block body %}
+
+    <h1>Add a New Task: </h1>
+    <form action="{% url 'tasks:add' %}" method="post">
+            {% csrf_token %}
+            {{ form }} 
+            <!-- Formulario creado con Django desde views -->
+            <button>Send</button>
+    </form>
+
+    <a href="{% url 'tasks:index' %}">View Tasks</a> 
+    <!-- Ponemos tasks: por al app_name que especificamos en el urls.py con el fin de definir las urls de tasks como unicas y que 
+    no haya choque o colisiones respecto a urls con names similares -->
+{% endblock %}

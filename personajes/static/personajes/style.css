@@ -1,0 +1,13 @@
+h1{
+    text-align: center !important;
+    color: rgba(192, 19, 19, 0.744) !important;
+}
+
+.char{
+    color: rgba(210, 93, 10, 0.744) !important;
+   
+}
+
+.char:hover{
+    outline: 1px solid grey !important;
+}
